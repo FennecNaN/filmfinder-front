@@ -1,5 +1,5 @@
 const config = {
-    apiUrl: process.env.VITE_RENDER_BACK
+    apiUrl: process.env.REACT_APP_API_URL
   };
   
   export default config;

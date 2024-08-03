@@ -26,7 +26,7 @@ const HomePage = () => {
     getMovies();
   }, [currentPage, setMovies]);
 
-  return (
+  return ( 
     <div className="home-page">
       <MovieList movies={movies} />
       <Pagination
