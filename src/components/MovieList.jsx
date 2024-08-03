@@ -4,6 +4,8 @@ import './MovieList.css';
 import { useAuth } from '../context/AuthContext';
 import AlertMessage from './AlertMessage';
 import MovieItem from './MovieItem';
+import config from '../config'; 
+
 
 const MovieList = ({ movies }) => {
   const { user } = useAuth();
@@ -14,7 +16,7 @@ const MovieList = ({ movies }) => {
     if (user) {
       const fetchFavorites = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/favorites/${user.id}`);
+          const response = await axios.get(`${config.apiUrl}/favorites/${user.id}`);
           setFavoriteIds(response.data.map(movie => movie.id));
         } catch (error) {
           console.error('Error fetching favorites:', error);
@@ -32,7 +34,7 @@ const MovieList = ({ movies }) => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/favorites', { userId: user.id, movieId });
+      await axios.post(`${config.apiUrl}/favorites`, { userId: user.id, movieId });
       setFavoriteIds([...favoriteIds, movieId]);
     } catch (error) {
       console.error('Error adding favorite:', error);
@@ -46,7 +48,7 @@ const MovieList = ({ movies }) => {
     }
 
     try {
-      await axios.delete('http://localhost:5000/api/favorites', {
+      await axios.delete(`${config.apiUrl}/favorites`, {
         data: { userId: user.id, movieId }
       });
       setFavoriteIds(favoriteIds.filter(id => id !== movieId));

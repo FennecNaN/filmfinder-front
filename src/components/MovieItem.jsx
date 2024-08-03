@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './MovieItem.css';
+import config from '../config'; 
 
 const MovieItem = ({ movie, isFavorite, onToggleFavorite }) => {
   const [platforms, setPlatforms] = useState([]);
@@ -9,7 +10,7 @@ const MovieItem = ({ movie, isFavorite, onToggleFavorite }) => {
   const handleMovieClick = async () => {
     if (!showPlatforms) {
       try {
-        const response = await axios.get(`http://localhost:5000/api/movies/${movie.id}/platforms`);
+        const response = await axios.get(`${config.apiUrl}/movies/${movie.id}/platforms`);
         setPlatforms(response.data);
       } catch (error) {
         console.error('Error fetching platforms:', error);

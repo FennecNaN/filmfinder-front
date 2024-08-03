@@ -3,6 +3,7 @@ import { useMovies } from '../context/MovieContext';
 import MovieList from '../components/MovieList';
 import axios from 'axios';
 import Pagination from '../components/Pagination';
+import config from '../config'; 
 
 const HomePage = () => {
   const { movies, setMovies } = useMovies();
@@ -12,10 +13,10 @@ const HomePage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/movies?page=${currentPage}&limit=6`);
+        const response = await axios.get(`${config.apiUrl}/movies?page=${currentPage}&limit=6`);
         setMovies(response.data);
 
-        const totalResponse = await axios.get('http://localhost:5000/api/movies/count');
+        const totalResponse = await axios.get(`${config.apiUrl}/api/movies/count`);
         setTotalPages(Math.ceil(totalResponse.data.count / 6));
       } catch (error) {
         console.error('Error fetching movies:', error);

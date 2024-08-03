@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import SearchBar from './SearchBar';
 import { useMovies } from '../context/MovieContext';
 import axios from 'axios';
+import config from '../config'; 
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -19,7 +20,7 @@ function Navbar() {
 
   const handleSearch = async (query) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/movies/search?query=${query}`);
+      const response = await axios.get(`${config.apiUrl}/movies/search?query=${query}`);
       setMovies(response.data);
     } catch (error) {
       console.error('Error searching movies:', error);
@@ -28,7 +29,7 @@ function Navbar() {
 
   const handleHomeClick = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/movies');
+      const response = await axios.get(`${config.apiUrl}/movies`);
       setMovies(response.data);
       if (searchBarRef.current) {
         searchBarRef.current.clearSearch();

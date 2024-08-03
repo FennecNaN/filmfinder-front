@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import MovieItem from '../components/MovieItem';
 import AlertMessage from '../components/AlertMessage';
 import '../components/MovieList.css';
+import config from '../config'; 
 
 const FavoritePage = () => {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ const FavoritePage = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/favorites/${user.id}`);
+        const response = await axios.get(`${config.apiUrl}/${user.id}`);
         setFavorites(response.data);
       } catch (error) {
         console.error('Error fetching favorites:', error);
@@ -25,7 +26,7 @@ const FavoritePage = () => {
 
   const removeFavorite = async (movieId) => {
     try {
-      await axios.delete('http://localhost:5000/api/favorites', {
+      await axios.delete(`${config.apiUrl}/api/favorites`, {
         data: { userId: user.id, movieId }
       });
       setFavorites(favorites.filter(movie => movie.id !== movieId));
