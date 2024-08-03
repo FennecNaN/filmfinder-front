@@ -1,5 +1,5 @@
 const config = {
-    apiUrl: process.env.RENDER_BACK
+    apiUrl: process.env.VITE_RENDER_BACK
   };
   
   export default config;
