@@ -2,7 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(-45deg, #d6d3d2, #d3c9d6, #c0bebd, #c7dbd6);
+    background-size: 400% 400%;
+    animation: gradientBG 21s ease infinite;
+    color: #333;
   }
   
   .home-page {
@@ -85,5 +88,75 @@ body {
   
   .search-bar button:hover {
     background-color: #0056b3;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    width: 100%;
+  }
+  
+  .card h2 {
+    margin-top: 0;
+  }
+  
+  .card p {
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  .user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .user-profile .card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .movie-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .movie-list h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .movie-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
   

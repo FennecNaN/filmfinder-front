@@ -41,26 +41,27 @@ function Navbar() {
 
   return (
     <nav>
-      <ul>
-        <li>
-          <Link to="/" onClick={handleHomeClick}>Home</Link>
-        </li>
-        <li>
-          <SearchBar ref={searchBarRef} onSearch={handleSearch} />
-        </li>
-        {!user ? (
-          <>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
-          </>
-        ) : (
-          <>
-            <li><Link to="/favorites">Favorites</Link></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
-            <li>Welcome, {user.name}</li>
-          </>
-        )}
-      </ul>
+      <div className="nav-left">
+        <span className="nav-link" onClick={handleHomeClick}>Home</span>
+        <SearchBar ref={searchBarRef} onSearch={handleSearch} />
+      </div>
+      <div className="nav-right">
+        <ul>
+          {!user ? (
+            <>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/register">Register</Link></li>
+            </>
+          ) : (
+            <>
+              <li><Link to="/favorites">Favorites</Link></li>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><button onClick={handleLogout}>Logout</button></li>
+              <li>Welcome, {user.name}</li>
+            </>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 }

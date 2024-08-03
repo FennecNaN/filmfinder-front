@@ -58,14 +58,16 @@ const MovieList = ({ movies }) => {
   return (
     <div className="movie-list">
       <h1>Movies</h1>
-      {movies.map((movie) => (
-        <MovieItem 
-          key={movie.id}
-          movie={movie}
-          isFavorite={favoriteIds.includes(movie.id)}
-          onToggleFavorite={(movieId) => favoriteIds.includes(movieId) ? removeFavorite(movieId) : addFavorite(movieId)}
-        />
-      ))}
+      <div className="movie-list-container">
+        {movies.map((movie) => (
+          <MovieItem 
+            key={movie.id}
+            movie={movie}
+            isFavorite={favoriteIds.includes(movie.id)}
+            onToggleFavorite={(movieId) => favoriteIds.includes(movieId) ? removeFavorite(movieId) : addFavorite(movieId)}
+          />
+        ))}
+      </div>
       {alertMessage && (
         <AlertMessage 
           message={alertMessage} 

@@ -24,7 +24,7 @@
   }
   
   .alert-message button {
-    background: #007bff;
+    background: #333;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -33,6 +33,6 @@
   }
   
   .alert-message button:hover {
-    background: #0056b3;
+    background: #29df56;
   }
   

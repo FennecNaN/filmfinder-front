@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 
 const SearchBar = forwardRef(({ onSearch }, ref) => {
   const [query, setQuery] = useState('');

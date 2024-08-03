@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css';
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -23,29 +23,31 @@ const LoginForm = () => {
 
   return (
     <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={onSubmit} className="login-form">
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      {error && <p className="message error">{error}</p>}
+      <div className="login-form card">
+        <h1>Login</h1>
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+        {error && <p className="message error">{error}</p>}
+      </div>
     </div>
   );
 };

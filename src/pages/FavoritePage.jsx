@@ -37,18 +37,20 @@ const FavoritePage = () => {
   return (
     <div className="movie-list">
       <h1>My Favorites</h1>
-      {favorites.length > 0 ? (
-        favorites.map((movie) => (
-          <MovieItem 
-            key={movie.id} 
-            movie={movie} 
-            isFavorite={true} 
-            onToggleFavorite={removeFavorite} 
-          />
-        ))
-      ) : (
-        <p>No favorites yet.</p>
-      )}
+      <div className="movie-list-container">
+        {favorites.length > 0 ? (
+          favorites.map((movie) => (
+            <MovieItem 
+              key={movie.id} 
+              movie={movie} 
+              isFavorite={true} 
+              onToggleFavorite={removeFavorite} 
+            />
+          ))
+        ) : (
+          <p>No favorites yet.</p>
+        )}
+      </div>
       {alertMessage && (
         <AlertMessage 
           message={alertMessage} 
