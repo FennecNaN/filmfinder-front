@@ -16,7 +16,7 @@ const HomePage = () => {
         const response = await axios.get(`${config.apiUrl}/movies?page=${currentPage}&limit=6`);
         setMovies(response.data);
 
-        const totalResponse = await axios.get(`${config.apiUrl}/api/movies/count`);
+        const totalResponse = await axios.get(`${config.apiUrl}/movies/count`);
         setTotalPages(Math.ceil(totalResponse.data.count / 6));
       } catch (error) {
         console.error('Error fetching movies:', error);
