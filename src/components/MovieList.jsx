@@ -1,25 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './MovieList.css';
+import { useAuth } from '../context/AuthContext';
+import AlertMessage from './AlertMessage';
+import MovieItem from './MovieItem';
 
 const MovieList = ({ movies }) => {
-  const [selectedMovieId, setSelectedMovieId] = useState(null);
-  const [moviePlatforms, setMoviePlatforms] = useState({});
+  const { user } = useAuth();
+  const [favoriteIds, setFavoriteIds] = useState([]);
+  const [alertMessage, setAlertMessage] = useState('');
 
-  const handleMovieClick = async (movieId) => {
-    if (moviePlatforms[movieId]) {
-      setSelectedMovieId(selectedMovieId === movieId ? null : movieId);
-    } else {
-      try {
-        const response = await fetch(`http://localhost:5000/api/movies/${movieId}/platforms`);
-        const data = await response.json();
-        setMoviePlatforms((prevPlatforms) => ({
-          ...prevPlatforms,
-          [movieId]: data,
-        }));
-        setSelectedMovieId(movieId);
-      } catch (error) {
-        console.error('Error fetching platforms:', error);
-      }
+  useEffect(() => {
+    if (user) {
+      const fetchFavorites = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/favorites/${user.id}`);
+          setFavoriteIds(response.data.map(movie => movie.id));
+        } catch (error) {
+          console.error('Error fetching favorites:', error);
+        }
+      };
+
+      fetchFavorites();
+    }
+  }, [user]);
+
+  const addFavorite = async (movieId) => {
+    if (!user) {
+      setAlertMessage('You need to be logged in to add favorites');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:5000/api/favorites', { userId: user.id, movieId });
+      setFavoriteIds([...favoriteIds, movieId]);
+    } catch (error) {
+      console.error('Error adding favorite:', error);
+    }
+  };
+
+  const removeFavorite = async (movieId) => {
+    if (!user) {
+      setAlertMessage('You need to be logged in to remove favorites');
+      return;
+    }
+
+    try {
+      await axios.delete('http://localhost:5000/api/favorites', {
+        data: { userId: user.id, movieId }
+      });
+      setFavoriteIds(favoriteIds.filter(id => id !== movieId));
+    } catch (error) {
+      console.error('Error removing favorite:', error);
     }
   };
 
@@ -27,21 +59,19 @@ const MovieList = ({ movies }) => {
     <div className="movie-list">
       <h1>Movies</h1>
       {movies.map((movie) => (
-        <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie.id)}>
-          <h3>{movie.title}</h3>
-          <p>Release Year: {movie.release_year}</p>
-          {selectedMovieId === movie.id && moviePlatforms[movie.id] && (
-            <div className="platforms-list">
-              <h4>Available on:</h4>
-              {moviePlatforms[movie.id].map((platform, index) => (
-                <div key={index} className="platform-item">
-                  <p>{platform.name}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <MovieItem 
+          key={movie.id}
+          movie={movie}
+          isFavorite={favoriteIds.includes(movie.id)}
+          onToggleFavorite={(movieId) => favoriteIds.includes(movieId) ? removeFavorite(movieId) : addFavorite(movieId)}
+        />
       ))}
+      {alertMessage && (
+        <AlertMessage 
+          message={alertMessage} 
+          onClose={() => setAlertMessage('')} 
+        />
+      )}
     </div>
   );
 };

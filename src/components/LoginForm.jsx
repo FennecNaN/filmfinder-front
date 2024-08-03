@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import './LoginForm.css';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -21,9 +22,10 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
+    <div className="login-container">
+      <h1>Login</h1>
+      <form onSubmit={onSubmit} className="login-form">
+        <div className="form-group">
           <label>Email:</label>
           <input
             type="email"
@@ -32,7 +34,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Password:</label>
           <input
             type="password"
@@ -41,9 +43,9 @@ const LoginForm = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className="login-button">Login</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="message error">{error}</p>}
     </div>
   );
 };

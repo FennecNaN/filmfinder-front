@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = forwardRef(({ onSearch }, ref) => {
   const [query, setQuery] = useState('');
+
+  useImperativeHandle(ref, () => ({
+    clearSearch: () => setQuery('')
+  }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +23,6 @@ const SearchBar = ({ onSearch }) => {
       <button type="submit">Search</button>
     </form>
   );
-};
+});
 
 export default SearchBar;

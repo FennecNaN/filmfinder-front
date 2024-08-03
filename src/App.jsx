@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Navbar from './components/Navbar';
+import FavoritePage from './pages/FavoritePage';
 import './App.css';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
             <Route exact path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/favorites" element={<FavoritePage />} />
+            
           </Routes>
         </MovieProvider>
       </AuthProvider>

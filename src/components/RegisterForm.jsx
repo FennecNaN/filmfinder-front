@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import './RegisterForm.css';
 
 const RegisterForm = () => {
   const [name, setName] = useState('');
@@ -20,17 +21,17 @@ const RegisterForm = () => {
       setMessage(response.message);
       setTimeout(() => {
         navigate('/login');
-      }, 2000); // Navegar a login después de 2 segundos
+      }, 2000);
     } catch (error) {
       setError(error.response?.data?.error || 'Registration failed');
     }
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h1>Register</h1>
-      <form onSubmit={onSubmit}>
-        <div>
+      <form onSubmit={onSubmit} className="register-form">
+        <div className="form-group">
           <label>Name:</label>
           <input
             type="text"
@@ -39,7 +40,7 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email:</label>
           <input
             type="email"
@@ -48,7 +49,7 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Password:</label>
           <input
             type="password"
@@ -57,10 +58,10 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="register-button">Register</button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && <p className="message success">{message}</p>}
+      {error && <p className="message error">{error}</p>}
     </div>
   );
 };
