@@ -14,7 +14,7 @@ const FavoritePage = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get(`${config.apiUrl}/${user.id}`);
+        const response = await axios.get(`${config.apiUrl}/favorites/${user.id}`);
         setFavorites(response.data);
       } catch (error) {
         console.error('Error fetching favorites:', error);
