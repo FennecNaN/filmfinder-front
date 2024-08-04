@@ -26,7 +26,7 @@ const FavoritePage = () => {
 
   const removeFavorite = async (movieId) => {
     try {
-      await axios.delete(`${config.apiUrl}/api/favorites`, {
+      await axios.delete(`${config.apiUrl}/favorites`, {
         data: { userId: user.id, movieId }
       });
       setFavorites(favorites.filter(movie => movie.id !== movieId));
