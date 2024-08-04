@@ -15,7 +15,6 @@ const HomePage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        console.log(URL)
         const response = await axios.get(`${URL}/movies?page=${currentPage}&limit=6`);
         setMovies(response.data);
 
