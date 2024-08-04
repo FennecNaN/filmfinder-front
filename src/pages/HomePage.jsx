@@ -3,9 +3,10 @@ import { useMovies } from '../context/MovieContext';
 import MovieList from '../components/MovieList';
 import axios from 'axios';
 import Pagination from '../components/Pagination';
-import config from '../config'; 
 
-const URL = config
+const config = {
+  apiUrl: import.meta.env.VITE_API_URL
+};
 
 const HomePage = () => {
   const { movies, setMovies } = useMovies();
@@ -15,7 +16,7 @@ const HomePage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const response = await axios.get(`${URL}/movies?page=${currentPage}&limit=6`);
+        const response = await axios.get(`${config.apiUrl}/movies?page=${currentPage}&limit=6`);
         setMovies(response.data);
 
         const totalResponse = await axios.get(`${config.apiUrl}/api/movies/count`);
