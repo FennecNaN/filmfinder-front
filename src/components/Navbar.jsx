@@ -20,7 +20,6 @@ function Navbar() {
 
   const handleSearch = async (query) => {
     try {
-      console.log(config.apiUrl);
       const response = await axios.get(`${config.apiUrl}/movies/search?query=${query}`);
       setMovies(response.data);
     } catch (error) {
